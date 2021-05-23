@@ -123,8 +123,8 @@ class FaceInterface(object):
 
 if __name__ == '__main__':
     client = FaceInterface()
-    face1 = open('../image/face.png', 'rb').read()
-    face2 = open('../image/face2.jpg', 'rb').read()
+    face1 = open('../../data/image/face.png', 'rb').read()
+    face2 = open('../../data/image/face2.jpg', 'rb').read()
     time_start = time.time()
     # 添加人脸
     # client.addUser("2016117250", face1)

@@ -1,7 +1,7 @@
 import cv2
 
-from core.faceinterface import FaceInterface
-import time
+from src.core.faceinterface import FaceInterface
+
 
 def capture_photo():
     """
@@ -23,7 +23,7 @@ def capture_photo():
             print(rect)
             x, y, w, h = rect[0]
             face = frame[y:y+h, x:x+w]
-            cv2.imwrite('../image/face.png', face)
+            cv2.imwrite('../../data/image/face.png', face)
             break
     capture.release()
     cv2.destroyAllWindows()
