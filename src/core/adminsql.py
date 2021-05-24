@@ -1,0 +1,89 @@
+import os
+
+from PyQt5 import QtSql
+from PyQt5.QtSql import QSqlQuery
+
+
+class AdminSql:
+
+    @staticmethod
+    def sql_init():
+        database = QtSql.QSqlDatabase.addDatabase('QSQLITE')
+        database.setDatabaseName('data/config/data.db')
+        database.open()
+
+    @staticmethod
+    def creat_table():
+        query = QSqlQuery()
+        query.prepare('create table admin (id int primary key, name text, password text,'
+                      ' className text, saveName blob, savePassword blob)')
+        if not query.exec_():
+            query.lastError()
+        else:
+            print('create a table')
+
+    @staticmethod
+    def insert(id, name, password, className):
+        query = QSqlQuery()
+        insert_sql = 'insert into admin values (?,?,?,?,?,?)'
+        query.prepare(insert_sql)
+        query.addBindValue(id)
+        query.addBindValue(name)
+        query.addBindValue(password)
+        query.addBindValue(className)
+        query.addBindValue(False)
+        query.addBindValue(False)
+        if not query.exec_():
+            return False
+        else:
+            return True
+
+    @staticmethod
+    def select_all():
+        query = QSqlQuery()
+        query.prepare('select id,name,password from admin')
+        if not query.exec_():
+            query.lastError()
+        else:
+            while query.next():
+                id = query.value(0)
+                name = query.value(1)
+                password = query.value(2)
+                print(id, name, password)
+
+    @staticmethod
+    def select_by_id(id):
+        query = QSqlQuery()
+        query.prepare('select id,name,password,className,saveName,savePassword from admin where id == {}'.format(id))
+        if not query.exec_():
+            query.lastError()
+            return None
+        else:
+            while query.next():
+                id = query.value(0)
+                name = query.value(1)
+                password = query.value(2)
+                className = query.value(3)
+                saveName = query.value(4)
+                savePassword = query.value(5)
+                return id, name, password, className, saveName, savePassword
+
+    @staticmethod
+    def set_saveName(saveName):
+        query = QSqlQuery()
+        query.prepare('UPDATE admin SET saveName = {} WHERE id = 0'.format(saveName))
+        if not query.exec_():
+            query.lastError()
+            return False
+        else:
+            return True
+
+    @staticmethod
+    def set_savePassword(savePassword):
+        query = QSqlQuery()
+        query.prepare('UPDATE admin SET savePassword = {} WHERE id = 0'.format(savePassword))
+        if not query.exec_():
+            query.lastError()
+            return False
+        else:
+            return True
