@@ -1,7 +1,9 @@
 import os
 from PyQt5.QtWidgets import QMainWindow
 
-from src.gui.admiwidget.admin.classwidget import ClassWidget
+from src.gui.admiwidget.admin.Infowidget import InfoWidget
+from src.gui.admiwidget.admin.facewidget import FaceWidget
+from src.gui.admiwidget.admin.signmanagerwidget import SignManagerWidget
 from src.gui.admiwidget.admin.ui_admin import Ui_Admin
 
 
@@ -15,12 +17,14 @@ class AdminWindow(QMainWindow, Ui_Admin):
         self._initConnect()
 
     def _initVariables(self):
-        self.class_widget = ClassWidget()
-
+        self.info_widget = InfoWidget()
+        self.face_widget = FaceWidget()
+        self.sign_manager_widget = SignManagerWidget()
 
     def _initWidget(self):
-        self.tabWidget.insertTab(0, self.class_widget, "班级管理")
-
+        self.tabWidget.insertTab(0, self.info_widget, "个人信息")
+        self.tabWidget.insertTab(1, self.face_widget, "人脸信息")
+        self.tabWidget.insertTab(2, self.sign_manager_widget, "签到情况")
 
     def _initConnect(self):
         pass

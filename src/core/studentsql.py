@@ -37,6 +37,7 @@ class StudentSql:
 
     @staticmethod
     def select_all():
+        student_list = []
         query = QSqlQuery()
         query.prepare('select studentId,name,uploadFace from student')
         if not query.exec_():
@@ -46,7 +47,8 @@ class StudentSql:
                 studentId = query.value(0)
                 name = query.value(1)
                 uploadFace = query.value(2)
-                print(studentId, name, uploadFace)
+                student_list.append((studentId, name, uploadFace))
+            return student_list
 
     @staticmethod
     def select_by_id(id):
@@ -61,3 +63,13 @@ class StudentSql:
                 name = query.value(1)
                 uploadFace = query.value(2)
                 return studentId, name, uploadFace
+
+    @staticmethod
+    def update_uploadFace_by_id(id, uploadFace):
+        query = QSqlQuery()
+        query.prepare('UPDATE student SET uploadFace = {} where studentId == {}'.format(uploadFace, id))
+        if not query.exec_():
+            query.lastError()
+            return False
+        else:
+            return True

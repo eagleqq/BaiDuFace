@@ -1,10 +1,8 @@
 
-from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDesktopWidget
 
 from src.core.adminsql import AdminSql
 from src.gui.admiwidget.admin.adminwindow import AdminWindow
-from src.gui.admiwidget.sign.signupwindow import SignUpWindow
 from src.gui.admiwidget.sign.ui_signin import Ui_Sign
 
 
@@ -20,7 +18,7 @@ class SignWindow(QMainWindow, Ui_Sign):
     def _initVariables(self):
         AdminSql.sql_init()
         AdminSql.creat_table()
-        AdminSql.insert(0, "admin", "admin", "0")
+        AdminSql.insert(0, "admin", "admin", "无")
 
     def _initWidget(self):
         self.setWindowTitle("登录")
@@ -59,7 +57,7 @@ class SignWindow(QMainWindow, Ui_Sign):
             self.admin_win.show()
             self.close()
         else:
-            QMessageBox.information(self, "错误", "账号密码错误")
+            QMessageBox.warning(self, "错误", "账号密码错误")
 
     def _name_changed(self):
         if self.checkBox_name.isChecked():
