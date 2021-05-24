@@ -88,9 +88,10 @@ class AdminSql:
         else:
             return True
 
-    def update(self, name, password, className):
+    @staticmethod
+    def update(name, password, className):
         query = QSqlQuery()
-        query.prepare('UPDATE admin SET name = {},password = {},className = {}  WHERE id = 0'.format(name, password, className))
+        query.prepare('UPDATE admin SET name = "{}",password = "{}",className = "{}"  WHERE id = 0'.format(name, password, className))
         if not query.exec_():
             query.lastError()
             return False

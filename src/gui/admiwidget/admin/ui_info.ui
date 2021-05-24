@@ -14,57 +14,20 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="1" column="1">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="0" column="0" colspan="2">
+    <layout class="QGridLayout" name="gridLayout" rowminimumheight="10,10,10">
+     <property name="topMargin">
+      <number>0</number>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
+     <property name="bottomMargin">
+      <number>0</number>
      </property>
-    </spacer>
-   </item>
-   <item row="1" column="2">
-    <widget class="QPushButton" name="pushButton_save">
-     <property name="font">
-      <font>
-       <pointsize>15</pointsize>
-      </font>
+     <property name="horizontalSpacing">
+      <number>6</number>
      </property>
-     <property name="text">
-      <string>修改设置</string>
+     <property name="verticalSpacing">
+      <number>100</number>
      </property>
-    </widget>
-   </item>
-   <item row="0" column="0" colspan="3">
-    <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0" columnstretch="0,0">
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="font">
-        <font>
-         <pointsize>13</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>所带班级：</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="font">
-        <font>
-         <pointsize>13</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>密码：</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="font">
@@ -86,12 +49,15 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_class">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
        <property name="font">
         <font>
          <pointsize>13</pointsize>
         </font>
+       </property>
+       <property name="text">
+        <string>密码：</string>
        </property>
       </widget>
      </item>
@@ -104,7 +70,53 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>所带班级：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lineEdit_class">
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
     </layout>
+   </item>
+   <item row="1" column="0">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="pushButton_save">
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>修改设置</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -1,7 +1,7 @@
 import os
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QIntValidator
 from PyQt5.QtWidgets import QWidget, QMessageBox, QTableWidgetItem, QAbstractItemView, QHeaderView
 
 from src.core.adminsql import AdminSql
@@ -23,6 +23,9 @@ class FaceWidget(QWidget, Ui_Face):
         StudentSql.creat_table()
 
     def _initWidget(self):
+        intValidator = QIntValidator()
+        self.lineEdit_id.setValidator(intValidator)
+
         self.tableWidget.setRowCount(0)
         self.tableWidget.setColumnCount(3)
         header = ["id", "姓名", "是否上传"]
@@ -81,7 +84,7 @@ class FaceWidget(QWidget, Ui_Face):
         # todo 上传
 
         StudentSql.update_uploadFace_by_id(id, True)
-        self.tableWidget.item(row, 0).setText("已上传")
+        self.tableWidget.item(row, 2).setText("已上传")
 
 
 
