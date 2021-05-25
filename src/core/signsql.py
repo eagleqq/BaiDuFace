@@ -39,6 +39,7 @@ class SignSql:
 
     @staticmethod
     def select_all():
+        list = []
         query = QSqlQuery()
         query.prepare('select classId,name,signTime,signOK from sign')
         if not query.exec_():
@@ -49,7 +50,8 @@ class SignSql:
                 name = query.value(1)
                 signTime = query.value(2)
                 signOK = query.value(3)
-                print(classId, name, signTime, signOK)
+                list.append((classId, name, signTime, signOK))
+            return list
 
     @staticmethod
     def select_by_id(classId):
@@ -67,8 +69,3 @@ class SignSql:
                 signOK = query.value(3)
                 result.append((classId, name, signTime, signOK))
             return result
-
-if __name__ == '__main__':
-    SignSql.sql_init()
-    SignSql.creat_table()
-    SignSql.insert("111", "a", "2021年05月25日08:32:51", True)
