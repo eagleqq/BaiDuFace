@@ -15,11 +15,10 @@ class SignSql:
     @staticmethod
     def creat_table():
         query = QSqlQuery()
-        query.prepare('create table sign (classId int, name text,'
-                      ' signTime text, signOK blob')
+        query.prepare('create table sign (ClassId int, name text, signTime text,'
+                      ' signOK blob)')
         if not query.exec_():
-            print(query.lastError().text())
-            print("err")
+            query.lastError()
         else:
             print('create a table')
 
@@ -68,3 +67,8 @@ class SignSql:
                 signOK = query.value(3)
                 result.append((classId, name, signTime, signOK))
             return result
+
+if __name__ == '__main__':
+    SignSql.sql_init()
+    SignSql.creat_table()
+    SignSql.insert("111", "a", "2021年05月25日08:32:51", True)

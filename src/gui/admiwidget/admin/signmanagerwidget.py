@@ -1,8 +1,9 @@
+import csv
 import os
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QWidget, QAbstractItemView, QHeaderView, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QAbstractItemView, QHeaderView, QTableWidgetItem, QFileDialog, QMessageBox
 
 from src.core.signsql import SignSql
 
@@ -22,7 +23,6 @@ class SignManagerWidget(QWidget, Ui_SignManager):
         SignSql.sql_init()
         SignSql.creat_table()
 
-
     def _initWidget(self):
         self.tableWidget.setRowCount(0)
         self.tableWidget.setColumnCount(4)
@@ -40,21 +40,49 @@ class SignManagerWidget(QWidget, Ui_SignManager):
         self.pushButton_export.clicked.connect(self._export)
 
     def _select_id(self):
-        SignSql.insert("111", "a", "22a46a", "a")
-        SignSql.select_all()
+        self._clear()
         id = self.lineEdit_id.text()
         results = SignSql.select_by_id(id)
         if results is None:
             return
-        print(results)
         for result in results:
-            self._append_to_table(result[0], result[1], result[2], result[3])
+            if result[3]:
+                self._append_to_table(result[0], result[1], result[2], "有效")
+            else:
+                self._append_to_table(result[0], result[1], result[2], "无效")
 
     def _select_time(self):
-        pass
+        self._clear()
+        id = self.lineEdit_id.text()
+        results = SignSql.select_by_id(id)
+        if results is None:
+            return
+        for result in results:
+            if result[3]:
+                self._append_to_table(result[0], result[1], result[2], "有效")
+            else:
+                self._append_to_table(result[0], result[1], result[2], "无效")
 
     def _export(self):
-        pass
+        if self.tableWidget.rowCount() == 0:
+            QMessageBox.warning(self, "错误", "导出失败,数据为空")
+            return
+        path = QFileDialog.getExistingDirectory(self, "选择导出目录")
+        if path == "":
+            return
+        with open(os.path.join(path, "export.csv"), 'w', encoding='utf8') as csvfile:
+            fieldnames = ['学号', '姓名', '签到时间', '签到状态']
+            writer = csv.writer(csvfile)
+            # 注意header是个好东西
+            # writer.writeheader()
+            writer.writerow(fieldnames)
+            for row in range(self.tableWidget.rowCount()):
+                id = self.tableWidget.item(row, 0).text()
+                name = self.tableWidget.item(row, 1).text()
+                time = self.tableWidget.item(row, 2).text()
+                ok = self.tableWidget.item(row, 3).text()
+                writer.writerow((id, name, time, ok))
+            QMessageBox.information(self, "成功", "导出成功")
 
     def _clear(self):
         self.tableWidget.clear()
@@ -66,7 +94,6 @@ class SignManagerWidget(QWidget, Ui_SignManager):
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-
 
     def _append_to_table(self, id, name, sign_time, signOK):
         self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)

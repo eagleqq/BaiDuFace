@@ -97,3 +97,7 @@ class AdminSql:
             return False
         else:
             return True
+
+if __name__ == '__main__':
+    AdminSql.sql_init()
+    AdminSql.creat_table()
