@@ -62,19 +62,22 @@ class FaceInterface(object):
         :param face:
         :return:score相似度, user_id用户id
         """
+        print("搜索中...")
         score = 0
         user_id = None
         image = self.image2base64(face)
+        # print(image)
         detect_result = self.client.detect(image, "BASE64")
         # detect()该函数会给出识别的人脸脸部的各类特征，返回值是一个字典，包含了识别的人脸中的各类特征
         # “face_probability”指的是函数判断的该图像是否为人脸特征的概率，为避免重复调用匹配接口，只有当概率大于0.8时才继续进行处理
-        print("detect_result", detect_result)
+        # print("detect_result", detect_result)
         if detect_result['result']['face_list'][0]['face_probability'] > 0.8:
             # search()该函数会将图片与人脸库中的图片进行匹配，返回值是一个字典，包含了人脸的匹配结果
             # “userlist”指的是用户组中的所有预先上传过图片的用户，“score”是与该用户的匹配成度
             search_result = self.client.search(image, "BASE64", GROUP_ID)
             score = search_result['result']['user_list'][0]['score']
             user_id = search_result['result']['user_list'][0]['user_id']
+        print(score, user_id)
         return score, user_id
 
     def math(self, face1, face2):
@@ -116,7 +119,7 @@ class FaceInterface(object):
         :return:
         """
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        face_detector = cv2.CascadeClassifier("../config/haarcascade_frontalface_alt.xml")
+        face_detector = cv2.CascadeClassifier("./data/config/haarcascade_frontalface_alt.xml")
         rect = face_detector.detectMultiScale(gray, 1.02, 5)
         return rect
 

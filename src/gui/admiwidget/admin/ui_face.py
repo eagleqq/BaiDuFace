@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_face.ui'
 #
-# Created by: PyQt5 UI code generator 5.5.1
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -20,15 +20,18 @@ class Ui_Face(object):
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
         self.lineEdit_id = QtWidgets.QLineEdit(Face)
+        self.lineEdit_id.setMinimumSize(QtCore.QSize(0, 30))
         self.lineEdit_id.setObjectName("lineEdit_id")
         self.horizontalLayout.addWidget(self.lineEdit_id)
         self.label_2 = QtWidgets.QLabel(Face)
         self.label_2.setObjectName("label_2")
         self.horizontalLayout.addWidget(self.label_2)
         self.lineEdit_name = QtWidgets.QLineEdit(Face)
+        self.lineEdit_name.setMinimumSize(QtCore.QSize(0, 30))
         self.lineEdit_name.setObjectName("lineEdit_name")
         self.horizontalLayout.addWidget(self.lineEdit_name)
         self.pushButton_add_student = QtWidgets.QPushButton(Face)
+        self.pushButton_add_student.setMinimumSize(QtCore.QSize(0, 30))
         self.pushButton_add_student.setObjectName("pushButton_add_student")
         self.horizontalLayout.addWidget(self.pushButton_add_student)
         self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 2)
@@ -51,6 +54,8 @@ class Ui_Face(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_pic.sizePolicy().hasHeightForWidth())
         self.label_pic.setSizePolicy(sizePolicy)
+        self.label_pic.setStyleSheet("background-color: rgb(0, 0, 0);")
+        self.label_pic.setText("")
         self.label_pic.setObjectName("label_pic")
         self.verticalLayout.addWidget(self.label_pic)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
@@ -75,6 +80,5 @@ class Ui_Face(object):
         self.label_2.setText(_translate("Face", "姓名："))
         self.pushButton_add_student.setText(_translate("Face", "添加"))
         self.label_3.setText(_translate("Face", "学生列表："))
-        self.label_pic.setText(_translate("Face", "pic"))
         self.pushButton_add_face.setText(_translate("Face", "添加人脸"))
 
