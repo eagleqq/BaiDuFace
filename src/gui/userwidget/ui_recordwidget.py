@@ -15,6 +15,7 @@ class Ui_Form(object):
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.groupBox = QtWidgets.QGroupBox(Form)
+        self.groupBox.setStyleSheet("background-color: rgb(170, 170, 255);")
         self.groupBox.setTitle("")
         self.groupBox.setObjectName("groupBox")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.groupBox)

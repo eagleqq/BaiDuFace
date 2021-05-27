@@ -9,7 +9,7 @@ class AdminSql:
     @staticmethod
     def sql_init():
         database = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-        database.setDatabaseName('data/config/data.db')
+        database.setDatabaseName('./data/config/data.db')
         database.open()
 
     @staticmethod

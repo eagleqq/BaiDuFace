@@ -8,14 +8,15 @@ from PIL import Image, ImageDraw, ImageFont
 from src.core.faceinterface import FaceInterface
 
 
-class CamReadThread(QThread):
+class RegisterThread(QThread):
     signalFrame = pyqtSignal(object)
     signalFailed = pyqtSignal(str)
     signalResult = pyqtSignal(str)  # id , image
 
     def __init__(self, parent=None):
-        super(CamReadThread, self).__init__(parent)
+        super(RegisterThread, self).__init__(parent)
         self.work = False
+        self.addFaceFlag = False
         self.facesdk = FaceInterface()
 
     def threadStart(self):
@@ -45,28 +46,24 @@ class CamReadThread(QThread):
                     break
                 time.sleep(0.1)
                 success, frame = self.capture.read()
-                # todo: 调用匹配算法
-                rect = self.facesdk.detect(frame)
-                for x, y, w, h in rect:
-                    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-                if len(rect) == 1:  # 当只有一个人时
-                    self.count += 1
-                    frame = self.drawText("请面向摄像头保持别动(5),{} ".format(self.count), frame)
-                    print(self.count)
-                    if self.count == 5:  # 保持5次
+                if self.addFaceFlag:
+                    rect = self.facesdk.detect(frame)
+                    for x, y, w, h in rect:
+                        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                    if len(rect) == 1:  # 当只有一个人时
+                        self.count += 1
+                        frame = self.drawText("请面向摄像头保持别动(5),{} ".format(self.count), frame)
+                        print(self.count)
+                        if self.count == 5:  # 保持5次
+                            self.count = 0
+                            x, y, w, h = rect[0]
+                            face_roi = frame[(y - 2):y + h + 4, (x - 2):x + w + 4]
+                            cv2.imwrite('./data/image/register_face.png', face_roi)
+                            frame = self.drawText("已注册", frame, 50, 150)
+                            self.signalFrame.emit(frame)
+                            self.signalResult.emit("已注册")
+                    else:
                         self.count = 0
-                        x, y, w, h = rect[0]
-                        face_roi = frame[(y - 2):y + h + 4, (x - 2):x + w + 4]
-                        cv2.imwrite('./data/image/face.png', face_roi)
-                        cv2.imwrite('./data/image/all.png', frame)
-                        frame = self.drawText("检测到人脸，正在匹配中...", frame, 50, 100)
-                        self.signalFrame.emit(frame)
-                        face_fd = open('./data/image/face.png', 'rb').read()
-                        score, user_id = self.facesdk.search(face_fd)
-                        frame = self.drawText("学号：{}， 相似度：{}".format(user_id, score), frame, 50, 150)
-                        self.signalResult.emit(user_id)
-                else:
-                    self.count = 0
                 self.signalFrame.emit(frame)
             self.capture.release()
             print("释放")

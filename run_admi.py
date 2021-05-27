@@ -1,3 +1,5 @@
+from src.core.signsql import SignSql
+from src.core.studentsql import StudentSql
 from src.gui.admiwidget.sign.signwindow import SignWindow
 import sys
 from PyQt5.QtWidgets import QApplication, QDesktopWidget

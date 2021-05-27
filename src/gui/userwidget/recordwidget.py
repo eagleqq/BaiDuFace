@@ -16,12 +16,13 @@ class RecordWidget(QWidget, ui_recordwidget.Ui_Form):
         """
         # 设置图像源 和 图像大小
         result_frame = cv2.cvtColor(face_image, cv2.COLOR_BGR2RGB)
-        qtImg = QImage(result_frame.data,
+        qtImg = QImage(result_frame[:],
                        result_frame.shape[1],
                        result_frame.shape[0],
+                       result_frame.shape[1] * 3,
                        QImage.Format_RGB888)
-        self.label.setScaledContents(True)
-        self.label.setPixmap(QPixmap.fromImage(qtImg))
+        jpg_out = QPixmap(qtImg).scaled(self.label.width(), self.label.height())  # 设置图片大小
+        self.label.setPixmap(jpg_out)
 
     def setName(self, name):
         """

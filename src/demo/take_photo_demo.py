@@ -23,7 +23,7 @@ def capture_photo():
             print(rect)
             x, y, w, h = rect[0]
             face = frame[y:y+h, x:x+w]
-            cv2.imwrite('../../data/image/face.png', face)
+            cv2.imwrite('../../data/image/face4.png', face)
             break
     capture.release()
     cv2.destroyAllWindows()

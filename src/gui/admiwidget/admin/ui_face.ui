@@ -115,7 +115,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_add_face">
          <property name="text">
-          <string>添加人脸</string>
+          <string>注册人脸</string>
          </property>
         </widget>
        </item>

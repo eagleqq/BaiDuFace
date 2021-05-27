@@ -1,12 +1,15 @@
 import os
 
+import cv2
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QIntValidator
+from PyQt5.QtGui import QFont, QIntValidator, QImage, QPixmap
 from PyQt5.QtWidgets import QWidget, QMessageBox, QTableWidgetItem, QAbstractItemView, QHeaderView
 
 from src.core.adminsql import AdminSql
+from src.core.faceinterface import FaceInterface
 from src.core.studentsql import StudentSql
 from src.gui.admiwidget.admin.ui_face import Ui_Face
+from src.gui.admiwidget.registerthread import RegisterThread
 
 
 class FaceWidget(QWidget, Ui_Face):
@@ -14,9 +17,17 @@ class FaceWidget(QWidget, Ui_Face):
     def __init__(self, parent=None):
         super(FaceWidget, self).__init__(parent)
         self.setupUi(self)
+        self.facesdk = FaceInterface()
+
         self._initVariables()
         self._initWidget()
         self._initConnect()
+
+        # 摄像头读取线程
+        self.cameraReadThread = RegisterThread()
+        self.cameraReadThread.signalFrame.connect(self.slotUpdateImage)
+        self.cameraReadThread.signalResult.connect(self.slotUpdateResult)
+        self.cameraReadThread.threadStart()
 
     def _initVariables(self):
         StudentSql.sql_init()
@@ -34,17 +45,23 @@ class FaceWidget(QWidget, Ui_Face):
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-
-        student_list = StudentSql.select_all()
-        for student in student_list:
-            if student[2]:
-                self._append_to_table(student[0], student[1], "已上传")
-            else:
-                self._append_to_table(student[0], student[1], "未上传")
+        self.updateStudentTableData()
 
     def _initConnect(self):
         self.pushButton_add_student.clicked.connect(self._add_student)
         self.pushButton_add_face.clicked.connect(self._add_face)
+
+    def updateStudentTableData(self):
+        self.tableWidget.setRowCount(0)
+        self.tableWidget.clearContents()
+        student_list = StudentSql.select_all()
+        print(student_list)
+        user_list = self.facesdk.getGroupUsers()
+        for student in student_list:
+            if str(student[0]) in user_list:
+                self._append_to_table(student[0], student[1], "已上传")
+            else:
+                self._append_to_table(student[0], student[1], "未上传")
 
     def _add_student(self):
         id = self.lineEdit_id.text()
@@ -80,11 +97,43 @@ class FaceWidget(QWidget, Ui_Face):
         if row == -1:
             QMessageBox.warning(self, "错误", "未选中学生")
             return
-        id = self.tableWidget.item(row, 0).text()
-        # todo 上传
+        self.cameraReadThread.addFaceFlag = True
 
-        StudentSql.update_uploadFace_by_id(id, True)
-        self.tableWidget.item(row, 2).setText("已上传")
+    def showImgToLabel(self, frame):
+        """
+        显示图片到qt label上
+        :param frame:  图片
+        :return:
+        """
+        result_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        qtImg = QImage(result_frame.data,
+                       result_frame.shape[1],
+                       result_frame.shape[0],
+                       QImage.Format_RGB888)
+        self.label_pic.setScaledContents(True)
+        self.label_pic.setPixmap(QPixmap.fromImage(qtImg))
 
+    def slotUpdateImage(self, frame):
+        self.showImgToLabel(frame)
 
+    def slotUpdateResult(self, msg):
+        """
+        人脸拍照完成，开始注册
+        :param msg:
+        :return:
+        """
+        print("slotUpdateResult")
+        print(msg)
+        self.cameraReadThread.addFaceFlag = False
+        try:
+            row = self.tableWidget.currentRow()
+            id = self.tableWidget.item(row, 0).text()
+            StudentSql.update_uploadFace_by_id(id, True)
+            self.tableWidget.item(row, 2).setText("已上传")
+            register_face = open('./data/image/register_face.png', 'rb').read()
+            self.facesdk.addUser(id, register_face)
+            QMessageBox.information(self, '注册', '学号为{}人脸注册成功!'.format(id), QMessageBox.Yes)
+            self.updateStudentTableData()
+        except Exception as e:
+            QMessageBox.information(self, '注册', '人脸注册失败，请重试! \n{}'.format(str(e)), QMessageBox.Yes)
 

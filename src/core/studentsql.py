@@ -9,13 +9,13 @@ class StudentSql:
     @staticmethod
     def sql_init():
         database = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-        database.setDatabaseName('data/config/data.db')
+        database.setDatabaseName('./data/config/data.db')
         database.open()
 
     @staticmethod
     def creat_table():
         query = QSqlQuery()
-        query.prepare('create table student (studentId int primary key, name text,'
+        query.prepare('create table student (studentId text primary key, name text,'
                       ' uploadFace blob)')
         if not query.exec_():
             query.lastError()
@@ -56,7 +56,7 @@ class StudentSql:
         query.prepare('select studentId,name,uploadFace from student where studentId == {}'.format(id))
         if not query.exec_():
             query.lastError()
-            return None
+            return None, None, None
         else:
             while query.next():
                 studentId = query.value(0)

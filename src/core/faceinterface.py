@@ -18,7 +18,7 @@ class FaceInterface(object):
     def addUser(self, user_id, face):
         """
         人脸注册
-        :param user_id: 用户id
+        :param user_id: 用户id，  学号_姓名
         :param face:   人脸图片
         :return:
         """
@@ -123,10 +123,22 @@ class FaceInterface(object):
         rect = face_detector.detectMultiScale(gray, 1.02, 5)
         return rect
 
+    def getGroupUsers(self):
+        """
+        获取用户名
+        :return:
+        """
+        result = self.client.getGroupUsers(GROUP_ID)
+        print(result)
+        if result['error_msg'] == 'SUCCESS':
+            user_id_list = result['result']['user_id_list']
+            return user_id_list
+        else:
+            return []
 
 if __name__ == '__main__':
     client = FaceInterface()
-    face1 = open('../../data/image/face.png', 'rb').read()
+    face1 = open('../../data/image/face4.png', 'rb').read()
     face2 = open('../../data/image/face2.jpg', 'rb').read()
     time_start = time.time()
     # 添加人脸
@@ -134,9 +146,10 @@ if __name__ == '__main__':
     # 更新人脸
     # client.updateUser("2016117250", face1)
     # 查询人脸
-    score, user_id = client.search(face1)
-    print("相似度={}，用户ID={}".format(score, user_id))
-
+    # score, user_id = client.search(face1)
+    # print("相似度={}，用户ID={}".format(score, user_id))
+    # 获取人脸列表
+    client.getGroupUsers()
     # client.deleteUser("2016117255")
     time_end = time.time()
     print('共计用时', time_end - time_start)
