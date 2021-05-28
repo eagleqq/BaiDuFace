@@ -33,6 +33,16 @@ class SignManagerWidget(QWidget, Ui_SignManager):
         self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
+        self._clear()
+        results = SignSql.select_all()
+        if results is None:
+            return
+        for result in results:
+            if result[3]:
+                self._append_to_table(result[0], result[1], result[2], "有效")
+            else:
+                self._append_to_table(result[0], result[1], result[2], "无效")
+
     def _initConnect(self):
         self.pushButton_select_id.clicked.connect(self._select_id)
         self.pushButton_select_time.clicked.connect(self._select_time)

@@ -15,7 +15,7 @@ class SignSql:
     @staticmethod
     def creat_table():
         query = QSqlQuery()
-        query.prepare('create table sign (ClassId int, name text, signTime text,'
+        query.prepare('create table sign (ClassId text, name text, signTime text,'
                       ' signOK blob)')
         if not query.exec_():
             query.lastError()

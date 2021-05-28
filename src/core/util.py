@@ -24,6 +24,9 @@ class Util:
         sign_msgs = SignSql.select_all()
         for student in students:
             for sign_msg in sign_msgs:
+                if student[0] != sign_msg[0]:
+                    print(student[0], type(student[0]))
+                    print(sign_msg[0], type(sign_msg[0]))
                 if student[0] == sign_msg[0] and sign_msg[3]:
                     all_num += 1
                     break
