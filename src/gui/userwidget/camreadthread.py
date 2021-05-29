@@ -49,6 +49,7 @@ class CamReadThread(QThread):
                 rect = self.facesdk.detect(frame)
                 for x, y, w, h in rect:
                     cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                # 当只有一个人
                 if len(rect) == 1:  # 当只有一个人时
                     self.count += 1
                     frame = self.drawText("请面向摄像头保持别动(5),{} ".format(self.count), frame)
@@ -59,12 +60,16 @@ class CamReadThread(QThread):
                         face_roi = frame[(y - 2):y + h + 4, (x - 2):x + w + 4]
                         cv2.imwrite('./data/image/face.png', face_roi)
                         cv2.imwrite('./data/image/all.png', frame)
-                        frame = self.drawText("检测到人脸，正在匹配中...", frame, 50, 100)
+                        frame = self.drawText("正在匹配中...", frame, 50, 100)
                         self.signalFrame.emit(frame)
                         face_fd = open('./data/image/face.png', 'rb').read()
-                        score, user_id = self.facesdk.search(face_fd)
-                        frame = self.drawText("学号：{}， 相似度：{}".format(user_id, score), frame, 50, 150)
-                        self.signalResult.emit(user_id)
+                        islive = self.facesdk.getIsLive(face_fd)
+                        if islive:
+                            score, user_id = self.facesdk.search(face_fd)
+                            frame = self.drawText("学号：{}， 相似度：{}".format(user_id, score), frame, 50, 150)
+                            self.signalResult.emit(user_id)
+                        else:
+                            frame = self.drawText("检测到人脸并非活体",  frame, 50, 150)
                 else:
                     self.count = 0
                 self.signalFrame.emit(frame)

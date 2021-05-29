@@ -1,7 +1,9 @@
 import base64
+import json
 import time
 from aip import AipFace
 import cv2
+import requests
 
 # 百度云密钥,请替换成自己的
 APP_ID = "24227732"
@@ -136,6 +138,41 @@ class FaceInterface(object):
         else:
             return []
 
+    def getAccessToken(self):
+        # client_id 为官网获取的AK， client_secret 为官网获取的SK
+        host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={}&client_secret={}'.format(API_KEY, SECRET_KEY)
+        response = requests.get(host)
+        if response:
+            print(response.json())
+
+    def getIsLive(self, face):
+        """
+        在线活体检测
+        :param face:
+        :return:
+        """
+        request_url = "https://aip.baidubce.com/rest/2.0/face/v3/faceverify"
+        params = [
+            {
+                "image": self.image2base64(face),
+                "image_type": "BASE64",
+            },
+        ]
+        params = json.dumps(params, ensure_ascii=False)
+        access_token = '24.5a3d275a9add9cda5c5014b074cb72b0.2592000.1624847415.282335-24227732'
+        request_url = request_url + "?access_token=" + access_token
+        headers = {'content-type': 'application/json'}
+        response = requests.post(request_url, data=params, headers=headers)
+        result = response.json()
+        print(result)
+        if result['error_msg'] == 'SUCCESS':
+            face_liveness = result['result']['face_liveness']
+            print("活体分数值", face_liveness)
+            if face_liveness > 0.9:
+                return True
+        return False
+
+
 if __name__ == '__main__':
     client = FaceInterface()
     face1 = open('../../data/image/face4.png', 'rb').read()
@@ -149,7 +186,9 @@ if __name__ == '__main__':
     # score, user_id = client.search(face1)
     # print("相似度={}，用户ID={}".format(score, user_id))
     # 获取人脸列表
-    client.getGroupUsers()
+    # client.getGroupUsers()
+    # client.getAccessToken()
+    client.getIsLive(face1)
     # client.deleteUser("2016117255")
     time_end = time.time()
     print('共计用时', time_end - time_start)

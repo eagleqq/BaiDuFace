@@ -1,8 +1,8 @@
 # BaiDuFace
-基于百度人脸识别api打卡系统，分为管理员端、用户端
+
 
 ## 环境安装：
-
+    pip install PyQt5 == 5.基于百度人脸识别api打卡系统，分为管理员端、用户端9
     pip install baidu-aip
     pip install opencv-python -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com/pypi/simple
 

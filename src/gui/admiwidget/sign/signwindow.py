@@ -23,6 +23,7 @@ class SignWindow(QMainWindow, Ui_Sign):
     def _initWidget(self):
         self.setWindowTitle("登录")
         admin = AdminSql.select_by_id(0)
+        print(admin)
         if admin[4]:
             self.checkBox_name.setChecked(True)
             self.lineEdit_name.setText(admin[1])
@@ -61,7 +62,8 @@ class SignWindow(QMainWindow, Ui_Sign):
 
     def _name_changed(self):
         if self.checkBox_name.isChecked():
-            AdminSql.set_saveName(True)
+            ret = AdminSql.set_saveName(True)
+            print("是否设置成功", ret)
         else:
             AdminSql.set_saveName(False)
 

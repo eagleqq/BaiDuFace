@@ -70,10 +70,12 @@ class AdminSql:
 
     @staticmethod
     def set_saveName(saveName):
+        print(saveName)
         query = QSqlQuery()
         query.prepare('UPDATE admin SET saveName = {} WHERE id = 0'.format(saveName))
         if not query.exec_():
-            query.lastError()
+            err = query.lastError()
+            print(err.text())
             return False
         else:
             return True
