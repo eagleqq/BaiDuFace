@@ -3,13 +3,15 @@ import os
 from PyQt5 import QtSql
 from PyQt5.QtSql import QSqlQuery
 
+from src.core.constants import MAIN_SQL_PATH
+
 
 class StudentSql:
-
+    # 学生信息表操作
     @staticmethod
     def sql_init():
         database = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-        database.setDatabaseName('./data/config/data.db')
+        database.setDatabaseName(MAIN_SQL_PATH)
         database.open()
 
     @staticmethod
@@ -48,21 +50,36 @@ class StudentSql:
                 name = query.value(1)
                 uploadFace = query.value(2)
                 student_list.append((studentId, name, uploadFace))
-            return student_list
+        return student_list
 
     @staticmethod
-    def select_by_id(id):
+    def select_all_dict():
+        student_dict = {}
         query = QSqlQuery()
-        query.prepare('select studentId,name,uploadFace from student where studentId == {}'.format(id))
+        query.prepare('select studentId,name,uploadFace from student')
         if not query.exec_():
             query.lastError()
-            return None, None, None
         else:
             while query.next():
                 studentId = query.value(0)
                 name = query.value(1)
                 uploadFace = query.value(2)
-                return studentId, name, uploadFace
+                student_dict[studentId] = [name, uploadFace]
+        return student_dict
+
+    @staticmethod
+    def select_by_id(id):
+        studentId, name, uploadFace = None, None, None
+        query = QSqlQuery()
+        query.prepare('select studentId,name,uploadFace from student where studentId == {}'.format(id))
+        if not query.exec_():
+            query.lastError()
+        else:
+            while query.next():
+                studentId = query.value(0)
+                name = query.value(1)
+                uploadFace = query.value(2)
+        return studentId, name, uploadFace
 
     @staticmethod
     def update_uploadFace_by_id(id, uploadFace):

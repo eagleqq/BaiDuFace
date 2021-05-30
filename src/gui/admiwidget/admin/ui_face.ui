@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>813</width>
-    <height>553</height>
+    <width>846</width>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">font: 16pt &quot;新宋体&quot;;</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" colspan="2">
@@ -54,9 +57,12 @@
       <widget class="QPushButton" name="pushButton_add_student">
        <property name="minimumSize">
         <size>
-         <width>0</width>
-         <height>30</height>
+         <width>100</width>
+         <height>40</height>
         </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);</string>
        </property>
        <property name="text">
         <string>添加</string>
@@ -114,6 +120,15 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_add_face">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 170, 255);</string>
+         </property>
          <property name="text">
           <string>注册人脸</string>
          </property>

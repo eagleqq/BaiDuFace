@@ -7,6 +7,6 @@ if __name__ == '__main__':
     from PyQt5.QtWidgets import QApplication
     app = QApplication(sys.argv)
     win = MainUserWindow()
-    win.setWindowTitle("百度人脸识别打卡")
+    win.setWindowTitle("打卡端")
     win.show()
     sys.exit(app.exec_())

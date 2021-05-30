@@ -13,8 +13,11 @@
 	- gui ：
 		- admiwidget： 存放后台管理界面代码
 		- userwidget： 存放打卡界面代码
+		- studentwidget: 存放学生端界面
+		- publicwidget：存放公共界面
 	- demo： 存放示例代码
 
 - docs： 存放各种文档
 - run_admi.py: 后台管理运行入口
 - run_user.py: 打卡界面运行入口
+- run_student.py: 学生端界面入口

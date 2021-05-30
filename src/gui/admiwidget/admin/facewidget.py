@@ -27,6 +27,8 @@ class FaceWidget(QWidget, Ui_Face):
         self.cameraReadThread = RegisterThread()
         self.cameraReadThread.signalFrame.connect(self.slotUpdateImage)
         self.cameraReadThread.signalResult.connect(self.slotUpdateResult)
+
+    def setUp(self):
         self.cameraReadThread.threadStart()
 
     def _initVariables(self):

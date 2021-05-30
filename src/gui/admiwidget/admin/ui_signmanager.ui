@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>813</width>
+    <width>934</width>
     <height>553</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">font: 75 16pt &quot;Aharoni&quot;;</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -54,6 +57,15 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_select_id">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 170, 255);</string>
+         </property>
          <property name="text">
           <string>查询</string>
          </property>
@@ -99,6 +111,15 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_select_time">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 170, 255);</string>
+         </property>
          <property name="text">
           <string>查询</string>
          </property>
@@ -125,6 +146,15 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_clear">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);</string>
+       </property>
        <property name="text">
         <string>清空</string>
        </property>
@@ -152,6 +182,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_export">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 0, 0);</string>
+       </property>
        <property name="text">
         <string>导出</string>
        </property>

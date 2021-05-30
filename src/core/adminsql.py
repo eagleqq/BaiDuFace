@@ -2,14 +2,15 @@ import os
 
 from PyQt5 import QtSql
 from PyQt5.QtSql import QSqlQuery
+from src.core.constants import MAIN_SQL_PATH
 
 
 class AdminSql:
-
+    # 管理员信息表操作
     @staticmethod
     def sql_init():
         database = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-        database.setDatabaseName('./data/config/data.db')
+        database.setDatabaseName(MAIN_SQL_PATH)
         database.open()
 
     @staticmethod

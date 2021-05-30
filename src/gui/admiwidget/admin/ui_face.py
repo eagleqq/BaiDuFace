@@ -11,7 +11,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Face(object):
     def setupUi(self, Face):
         Face.setObjectName("Face")
-        Face.resize(813, 553)
+        Face.resize(846, 584)
+        Face.setStyleSheet("font: 16pt \"新宋体\";")
         self.gridLayout = QtWidgets.QGridLayout(Face)
         self.gridLayout.setObjectName("gridLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
@@ -31,7 +32,8 @@ class Ui_Face(object):
         self.lineEdit_name.setObjectName("lineEdit_name")
         self.horizontalLayout.addWidget(self.lineEdit_name)
         self.pushButton_add_student = QtWidgets.QPushButton(Face)
-        self.pushButton_add_student.setMinimumSize(QtCore.QSize(0, 30))
+        self.pushButton_add_student.setMinimumSize(QtCore.QSize(100, 40))
+        self.pushButton_add_student.setStyleSheet("background-color: rgb(85, 170, 255);")
         self.pushButton_add_student.setObjectName("pushButton_add_student")
         self.horizontalLayout.addWidget(self.pushButton_add_student)
         self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 2)
@@ -63,6 +65,8 @@ class Ui_Face(object):
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.pushButton_add_face = QtWidgets.QPushButton(Face)
+        self.pushButton_add_face.setMinimumSize(QtCore.QSize(100, 40))
+        self.pushButton_add_face.setStyleSheet("background-color: rgb(85, 170, 255);")
         self.pushButton_add_face.setObjectName("pushButton_add_face")
         self.horizontalLayout_2.addWidget(self.pushButton_add_face)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -80,5 +84,5 @@ class Ui_Face(object):
         self.label_2.setText(_translate("Face", "姓名："))
         self.pushButton_add_student.setText(_translate("Face", "添加"))
         self.label_3.setText(_translate("Face", "学生列表："))
-        self.pushButton_add_face.setText(_translate("Face", "添加人脸"))
+        self.pushButton_add_face.setText(_translate("Face", "注册人脸"))
 

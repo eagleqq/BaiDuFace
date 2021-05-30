@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_signmanager.ui'
 #
-# Created by: PyQt5 UI code generator 5.5.1
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -11,7 +11,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_SignManager(object):
     def setupUi(self, SignManager):
         SignManager.setObjectName("SignManager")
-        SignManager.resize(813, 553)
+        SignManager.resize(934, 553)
+        SignManager.setStyleSheet("font: 75 16pt \"Aharoni\";")
         self.gridLayout = QtWidgets.QGridLayout(SignManager)
         self.gridLayout.setObjectName("gridLayout")
         self.verticalLayout = QtWidgets.QVBoxLayout()
@@ -33,6 +34,8 @@ class Ui_SignManager(object):
         self.lineEdit_id.setObjectName("lineEdit_id")
         self.horizontalLayout.addWidget(self.lineEdit_id)
         self.pushButton_select_id = QtWidgets.QPushButton(SignManager)
+        self.pushButton_select_id.setMinimumSize(QtCore.QSize(100, 40))
+        self.pushButton_select_id.setStyleSheet("background-color: rgb(85, 170, 255);")
         self.pushButton_select_id.setObjectName("pushButton_select_id")
         self.horizontalLayout.addWidget(self.pushButton_select_id)
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -53,6 +56,8 @@ class Ui_SignManager(object):
         self.lineEdit_time.setObjectName("lineEdit_time")
         self.horizontalLayout_2.addWidget(self.lineEdit_time)
         self.pushButton_select_time = QtWidgets.QPushButton(SignManager)
+        self.pushButton_select_time.setMinimumSize(QtCore.QSize(100, 40))
+        self.pushButton_select_time.setStyleSheet("background-color: rgb(85, 170, 255);")
         self.pushButton_select_time.setObjectName("pushButton_select_time")
         self.horizontalLayout_2.addWidget(self.pushButton_select_time)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -62,6 +67,8 @@ class Ui_SignManager(object):
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_5.addItem(spacerItem2)
         self.pushButton_clear = QtWidgets.QPushButton(SignManager)
+        self.pushButton_clear.setMinimumSize(QtCore.QSize(100, 40))
+        self.pushButton_clear.setStyleSheet("background-color: rgb(85, 170, 255);")
         self.pushButton_clear.setObjectName("pushButton_clear")
         self.horizontalLayout_5.addWidget(self.pushButton_clear)
         self.gridLayout.addLayout(self.horizontalLayout_5, 1, 0, 1, 1)
@@ -75,6 +82,7 @@ class Ui_SignManager(object):
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_6.addItem(spacerItem3)
         self.pushButton_export = QtWidgets.QPushButton(SignManager)
+        self.pushButton_export.setStyleSheet("background-color: rgb(255, 0, 0);")
         self.pushButton_export.setObjectName("pushButton_export")
         self.horizontalLayout_6.addWidget(self.pushButton_export)
         self.gridLayout.addLayout(self.horizontalLayout_6, 3, 0, 1, 1)

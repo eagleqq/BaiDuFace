@@ -1,0 +1,93 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'ui_login.ui'
+#
+# Created by: PyQt5 UI code generator 5.9
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_Form(object):
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.resize(574, 286)
+        Form.setMinimumSize(QtCore.QSize(574, 286))
+        Form.setMaximumSize(QtCore.QSize(574, 286))
+        Form.setStyleSheet("font: 16pt \"新宋体\";")
+        self.label = QtWidgets.QLabel(Form)
+        self.label.setGeometry(QtCore.QRect(30, 60, 151, 141))
+        self.label.setStyleSheet("background-color: rgb(0, 0, 0);")
+        self.label.setObjectName("label")
+        self.layoutWidget = QtWidgets.QWidget(Form)
+        self.layoutWidget.setGeometry(QtCore.QRect(211, 59, 301, 198))
+        self.layoutWidget.setObjectName("layoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.label_2 = QtWidgets.QLabel(self.layoutWidget)
+        self.label_2.setObjectName("label_2")
+        self.horizontalLayout.addWidget(self.label_2)
+        self.lineEdit_username = QtWidgets.QLineEdit(self.layoutWidget)
+        self.lineEdit_username.setMinimumSize(QtCore.QSize(0, 30))
+        self.lineEdit_username.setInputMask("")
+        self.lineEdit_username.setDragEnabled(False)
+        self.lineEdit_username.setClearButtonEnabled(True)
+        self.lineEdit_username.setObjectName("lineEdit_username")
+        self.horizontalLayout.addWidget(self.lineEdit_username)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.label_3 = QtWidgets.QLabel(self.layoutWidget)
+        self.label_3.setObjectName("label_3")
+        self.horizontalLayout_2.addWidget(self.label_3)
+        self.lineEdit_pwd = QtWidgets.QLineEdit(self.layoutWidget)
+        self.lineEdit_pwd.setMinimumSize(QtCore.QSize(0, 30))
+        self.lineEdit_pwd.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.lineEdit_pwd.setClearButtonEnabled(True)
+        self.lineEdit_pwd.setObjectName("lineEdit_pwd")
+        self.horizontalLayout_2.addWidget(self.lineEdit_pwd)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem)
+        self.checkBox_remember = QtWidgets.QCheckBox(self.layoutWidget)
+        self.checkBox_remember.setObjectName("checkBox_remember")
+        self.horizontalLayout_4.addWidget(self.checkBox_remember)
+        self.verticalLayout.addLayout(self.horizontalLayout_4)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.pushButton_login = QtWidgets.QPushButton(self.layoutWidget)
+        self.pushButton_login.setMinimumSize(QtCore.QSize(0, 40))
+        self.pushButton_login.setStyleSheet("background-color: rgb(85, 170, 255);")
+        self.pushButton_login.setObjectName("pushButton_login")
+        self.horizontalLayout_3.addWidget(self.pushButton_login)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem2)
+        self.pushButton_exit = QtWidgets.QPushButton(self.layoutWidget)
+        self.pushButton_exit.setMinimumSize(QtCore.QSize(0, 40))
+        self.pushButton_exit.setStyleSheet("background-color: rgb(85, 170, 255);")
+        self.pushButton_exit.setObjectName("pushButton_exit")
+        self.horizontalLayout_3.addWidget(self.pushButton_exit)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
+
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "登陆"))
+        self.label.setText(_translate("Form", "TextLabel"))
+        self.label_2.setText(_translate("Form", "账号"))
+        self.lineEdit_username.setPlaceholderText(_translate("Form", "请输入账号"))
+        self.label_3.setText(_translate("Form", "密码"))
+        self.lineEdit_pwd.setPlaceholderText(_translate("Form", "请输入密码"))
+        self.checkBox_remember.setText(_translate("Form", "记住"))
+        self.pushButton_login.setText(_translate("Form", "登陆"))
+        self.pushButton_exit.setText(_translate("Form", "退出"))
+
