@@ -1,3 +1,4 @@
+from src.core.leavesql import LeaveSql
 from src.core.signsql import SignSql
 from src.core.studentsql import StudentSql
 
@@ -31,3 +32,16 @@ class Util:
                     all_num += 1
                     break
         return all_num
+
+    @staticmethod
+    def get_leave_num():
+        leave_num = 0
+        leave_list = []
+        LeaveSql.sql_init()
+        LeaveSql.creat_table()
+        results = LeaveSql.select_all()
+        for result in results:
+            if result[0] not in leave_list:
+                leave_list.append(result[0])
+                leave_num += 1
+        return leave_num

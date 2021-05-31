@@ -1,7 +1,7 @@
 import csv
 import os
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QAbstractItemView, QHeaderView, QTableWidgetItem, QFileDialog, QMessageBox
 
@@ -24,6 +24,7 @@ class SignManagerWidget(QWidget, Ui_SignManager):
         SignSql.creat_table()
 
     def _initWidget(self):
+        self.dateEdit.setDate(QDate.currentDate())
         self.tableWidget.setRowCount(0)
         self.tableWidget.setColumnCount(4)
         header = ["id", "姓名", "签到时间", "签到状态"]
@@ -46,7 +47,7 @@ class SignManagerWidget(QWidget, Ui_SignManager):
     def _initConnect(self):
         self.pushButton_select_id.clicked.connect(self._select_id)
         self.pushButton_select_time.clicked.connect(self._select_time)
-        self.pushButton_clear.clicked.connect(self._clear)
+        self.pushButton_clear.clicked.connect(self._clear2)
         self.pushButton_export.clicked.connect(self._export)
 
     def _select_id(self):
@@ -63,8 +64,17 @@ class SignManagerWidget(QWidget, Ui_SignManager):
 
     def _select_time(self):
         self._clear()
-        id = self.lineEdit_id.text()
-        results = SignSql.select_by_id(id)
+        date = self.dateEdit.date()
+        if date.month() < 10:
+            time = str(date.year()) + "-" + "0" + str(date.month())
+        else:
+            time = str(date.year()) + "-" + str(date.month())
+        if date.day() < 10:
+            time += "-" + "0" + str(date.day())
+        else:
+            time += "-" + str(date.day())
+        print(time)
+        results = SignSql.select_by_time(time)
         if results is None:
             return
         for result in results:
@@ -104,6 +114,17 @@ class SignManagerWidget(QWidget, Ui_SignManager):
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+    def _clear2(self):
+        self._clear()
+        results = SignSql.select_all()
+        if results is None:
+            return
+        for result in results:
+            if result[3]:
+                self._append_to_table(result[0], result[1], result[2], "有效")
+            else:
+                self._append_to_table(result[0], result[1], result[2], "无效")
 
     def _append_to_table(self, id, name, sign_time, signOK):
         self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)

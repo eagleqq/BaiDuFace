@@ -70,3 +70,21 @@ class SignSql:
                 signOK = query.value(3)
                 result.append((classId, name, signTime, signOK))
             return result
+
+    @staticmethod
+    def select_by_time(time):
+        result = []
+        query = QSqlQuery()
+        query.prepare('select classId,name,signTime,signOK from sign')
+        if not query.exec_():
+            query.lastError()
+            return None
+        else:
+            while query.next():
+                classId = query.value(0)
+                name = query.value(1)
+                signTime = query.value(2)
+                signOK = query.value(3)
+                if signTime.startswith(time):
+                    result.append((classId, name, signTime, signOK))
+            return result

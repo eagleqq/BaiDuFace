@@ -2,6 +2,8 @@ import os
 from PyQt5.QtWidgets import QMainWindow
 
 from src.gui.admiwidget.admin.Infowidget import InfoWidget
+from src.gui.admiwidget.admin.Leavewidget import LeaveWidget
+from src.gui.admiwidget.admin.Signwidget import SignWidget
 from src.gui.admiwidget.admin.facewidget import FaceWidget
 from src.gui.admiwidget.admin.signmanagerwidget import SignManagerWidget
 from src.gui.admiwidget.admin.ui_admin import Ui_Admin
@@ -20,9 +22,13 @@ class AdminWindow(QMainWindow, Ui_Admin):
         self.info_widget = InfoWidget()
         self.face_widget = FaceWidget()
         self.sign_manager_widget = SignManagerWidget()
+        self.leave_widget = LeaveWidget()
+        self.sign_widget = SignWidget()
         self.stackedWidget.addWidget(self.info_widget)
         self.stackedWidget.addWidget(self.face_widget)
         self.stackedWidget.addWidget(self.sign_manager_widget)
+        self.stackedWidget.addWidget(self.leave_widget)
+        self.stackedWidget.addWidget(self.sign_widget)
 
     def initConnect(self):
         self.toolButton_home.clicked.connect(self.slotCheckoutHome)  # 首页
@@ -49,12 +55,12 @@ class AdminWindow(QMainWindow, Ui_Admin):
         self.stackedWidget.setCurrentWidget(self.face_widget)
 
     def slotCheckoutLeave(self):
-        pass
+        self.stackedWidget.setCurrentWidget(self.leave_widget)
 
     def slotCheckoutRecord(self):
         self.stackedWidget.setCurrentWidget(self.sign_manager_widget)
 
     def slotCheckoutSetting(self):
-        pass
+        self.stackedWidget.setCurrentWidget(self.sign_widget)
 
 
