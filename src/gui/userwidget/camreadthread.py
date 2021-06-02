@@ -6,6 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 # 相机读取线程
 from src.core.faceinterface import FaceInterface
+from src.core.signsql2 import Sign2Sql
 
 
 class CamReadThread(QThread):
@@ -32,6 +33,11 @@ class CamReadThread(QThread):
         draw.text((x, y), text, (255, 0, 0), font=font)
         cv2charimg = cv2.cvtColor(np.array(pilimg), cv2.COLOR_RGB2BGR)
         return cv2charimg
+
+    # def getIsCanClock(self):
+    #     Sign2Sql.sql_init()
+    #     Sign2Sql.creat_table()
+    #     Sign2Sql.select_all()
 
     def run(self):
         try:

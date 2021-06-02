@@ -82,8 +82,11 @@ class MainUserWindow(QMainWindow, ui_mainuserwindow.Ui_MainWindow):
     def updateTotal(self):
         all_num = Util.get_all_num()
         activate_num = Util.get_arrive_num()
+        leave_num = Util.get_leave_num()
+        print(all_num, activate_num, leave_num)
         self.lcdNumber_should.display(all_num)
         self.lcdNumber_has.display(activate_num)
+        self.lcdNumber_leave.display(leave_num)
 
 
 if __name__ == '__main__':

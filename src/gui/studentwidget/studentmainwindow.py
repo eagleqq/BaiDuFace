@@ -18,7 +18,6 @@ class StudentMainWindow(QMainWindow, ui_studentmainwindow.Ui_MainWindow):
         StudentSql.creat_table()
         LeaveSql.sql_init()
         LeaveSql.creat_table()
-        # print(Util.get_leave_num())
 
         self.stackedWidget.setCurrentWidget(self.page_leave)
         self.toolButton_leave.clicked.connect(self.slotCheckoutLeave)
