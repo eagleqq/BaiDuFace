@@ -6,7 +6,7 @@ from src.core.constants import MAIN_SQL_PATH
 
 
 class Sign2Sql:
-
+    # 上课打卡时间
     @staticmethod
     def sql_init():
         database = QtSql.QSqlDatabase.addDatabase('QSQLITE')
@@ -57,4 +57,3 @@ class Sign2Sql:
                 print("@@" + time)
                 list.append((time))
             return list
-

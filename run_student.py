@@ -17,6 +17,7 @@ if __name__ == '__main__':
         username = login.getLoginUsername()
         print("登陆的用户名", username)
         student_win.setUsername(username)
+        student_win.updateRecordTable()
         student_win.show()
     print("---3")
     sys.exit(app.exec_())

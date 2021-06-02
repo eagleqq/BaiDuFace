@@ -30,7 +30,7 @@ class LeaveWidget(QWidget, Ui_Leave):
     def _initWidget(self):
         self.tableWidget.setRowCount(0)
         self.tableWidget.setColumnCount(5)
-        header = ["id", "姓名", "请假开始时间", "请假结束时间", "     是否同意     "]
+        header = ["学号", "姓名", "请假开始时间", "请假结束时间", "     是否同意     "]
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.setHorizontalHeaderLabels(header)
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -68,7 +68,7 @@ class LeaveWidget(QWidget, Ui_Leave):
         self.tableWidget.clear()
         self.tableWidget.setRowCount(0)
         self.tableWidget.setColumnCount(5)
-        header = ["id", "姓名", "请假开始时间", "请假结束时间", "     是否同意     "]
+        header = ["学号", "姓名", "请假开始时间", "请假结束时间", "     是否同意     "]
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.setHorizontalHeaderLabels(header)
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)

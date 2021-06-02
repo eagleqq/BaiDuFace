@@ -216,6 +216,12 @@
                     <height>30</height>
                    </size>
                   </property>
+                  <property name="displayFormat">
+                   <string>yyyy-MM-dd HH:mm:ss</string>
+                  </property>
+                  <property name="calendarPopup">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -248,6 +254,12 @@
                     <width>0</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="displayFormat">
+                   <string>yyyy-MM-dd HH:mm:ss</string>
+                  </property>
+                  <property name="calendarPopup">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -290,13 +302,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupBox_4">
+            <widget class="QGroupBox" name="groupBox_leave">
              <property name="title">
               <string>请假记录</string>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_8">
               <item>
-               <widget class="QTableView" name="tableView_leave"/>
+               <widget class="QTableWidget" name="tableWidget_leave"/>
               </item>
              </layout>
             </widget>
@@ -313,9 +325,42 @@
              <property name="title">
               <string>考勤记录</string>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_10">
+             <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QTableView" name="tableView_record"/>
+               <layout class="QHBoxLayout" name="horizontalLayout_10">
+                <item>
+                 <spacer name="horizontalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_refresh">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(85, 170, 255);</string>
+                  </property>
+                  <property name="text">
+                   <string>刷新</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QTableWidget" name="tableWidget_record"/>
               </item>
              </layout>
             </widget>

@@ -27,7 +27,7 @@ class SignManagerWidget(QWidget, Ui_SignManager):
         self.dateEdit.setDate(QDate.currentDate())
         self.tableWidget.setRowCount(0)
         self.tableWidget.setColumnCount(4)
-        header = ["id", "姓名", "签到时间", "签到状态"]
+        header = ["学号", "姓名", "签到时间", "签到状态"]
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.setHorizontalHeaderLabels(header)
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -108,7 +108,7 @@ class SignManagerWidget(QWidget, Ui_SignManager):
         self.tableWidget.clear()
         self.tableWidget.setRowCount(0)
         self.tableWidget.setColumnCount(4)
-        header = ["id", "姓名", "签到时间", "签到状态"]
+        header = ["学号", "姓名", "签到时间", "签到状态"]
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.setHorizontalHeaderLabels(header)
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
