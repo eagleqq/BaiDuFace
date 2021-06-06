@@ -90,3 +90,13 @@ class StudentSql:
             return False
         else:
             return True
+
+    @staticmethod
+    def delete_by_id(id):
+        query = QSqlQuery()
+        query.prepare('DELETE FROM student where studentId == {}'.format(id))
+        if not query.exec_():
+            query.lastError()
+            return False
+        else:
+            return True

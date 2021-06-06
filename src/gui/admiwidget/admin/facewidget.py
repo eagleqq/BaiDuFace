@@ -3,7 +3,7 @@ import os
 import cv2
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QIntValidator, QImage, QPixmap
-from PyQt5.QtWidgets import QWidget, QMessageBox, QTableWidgetItem, QAbstractItemView, QHeaderView
+from PyQt5.QtWidgets import QWidget, QMessageBox, QTableWidgetItem, QAbstractItemView, QHeaderView, QMenu
 
 from src.core.adminsql import AdminSql
 from src.core.faceinterface import FaceInterface
@@ -28,6 +28,9 @@ class FaceWidget(QWidget, Ui_Face):
         self.cameraReadThread.signalFrame.connect(self.slotUpdateImage)
         self.cameraReadThread.signalResult.connect(self.slotUpdateResult)
 
+        self.tableWidget.setContextMenuPolicy(Qt.CustomContextMenu)  # 允许右键产生子菜单
+        self.tableWidget.customContextMenuRequested.connect(self.contextMenuEvent)  # 右键菜单
+
     def setUp(self):
         self.cameraReadThread.threadStart()
 
@@ -41,7 +44,7 @@ class FaceWidget(QWidget, Ui_Face):
 
         self.tableWidget.setRowCount(0)
         self.tableWidget.setColumnCount(3)
-        header = ["id", "姓名", "是否上传"]
+        header = ["学号", "姓名", "是否上传"]
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.setHorizontalHeaderLabels(header)
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -139,3 +142,26 @@ class FaceWidget(QWidget, Ui_Face):
         except Exception as e:
             QMessageBox.information(self, '注册', '人脸注册失败，请重试! \n{}'.format(str(e)), QMessageBox.Yes)
 
+    def contextMenuEvent(self, pos):
+        row_num = -1
+        for i in self.tableWidget.selectionModel().selection().indexes():
+            row_num = i.row()
+        menu = QMenu()
+        item_del = menu.addAction(u"删除")
+        action = menu.exec_(self.tableWidget.mapToGlobal(pos))
+        if action == item_del:
+            sid = self.tableWidget.item(row_num, 0).text()
+            ret = QMessageBox.information(self, '删除', '确认删除学号{}!'.format(sid),
+                                          QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if ret == QMessageBox.Yes:
+                print("删除")
+                try:
+                    ret = StudentSql.delete_by_id(sid)
+                    print(ret)
+                    self.facesdk.deleteUser(sid)
+                    QMessageBox.information(self, '删除', '删除成功!', QMessageBox.Yes)
+                except Exception as e:
+                    QMessageBox.information(self, '删除', '删除失败！{}!'.format(str(e)), QMessageBox.Yes)
+                self.updateStudentTableData()
+        else:
+            return

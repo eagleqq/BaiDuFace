@@ -19,6 +19,7 @@ class InfoWidget(QWidget, Ui_Info):
 
     def _initWidget(self):
         admin = AdminSql.select_by_id(0)
+        print("---", admin)
         self.lineEdit_name.setText(admin[1])
         self.lineEdit_password.setText(admin[2])
 

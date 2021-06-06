@@ -29,8 +29,6 @@ class LoginWidget(QDialog, ui_login.Ui_Form):
         elif self.login_type == LoginType.Admin:
             self.login_info_config = LoginData(ADMIN_LOGIN_INFO_PATH)
             AdminSql.sql_init()
-            AdminSql.creat_table()
-            AdminSql.insert(0, "admin", "admin", "无")
         username, password = self.login_info_config.getInfo()
         self.lineEdit_username.setText(username)
         self.lineEdit_pwd.setText(password)
